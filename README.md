@@ -2,6 +2,8 @@
 
 Landing page responsiva em português. Marca provisória autorizada, com apresentação de serviços, segmentos interativos, etapas da parceria, perguntas frequentes e formulário demonstrativo.
 
+A identidade usa azul claro nos detalhes e na marca, azul-marinho nos botões e textos, branco e fundos azulados suaves. Tons de azul com mais contraste são usados em textos e controles sobre fundo branco.
+
 ## Usar e personalizar
 
 O site completo está em `dist/`. Abra `dist/index.html` em um navegador ou hospede o conteúdo dessa pasta em um servidor estático. A publicação via Sites está vinculada a `.openai/hosting.json`.
