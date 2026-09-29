@@ -1,34 +1,37 @@
-# Vértice Contabilidade
+# Padula Contabilidade
 
-Landing page responsiva em português. Marca provisória autorizada, com apresentação de serviços, segmentos interativos, etapas da parceria, perguntas frequentes e formulário demonstrativo.
+Landing page responsiva da **Padula Contabilidade**, com apresentação de serviços contábeis, segmentos atendidos, etapas da parceria, perguntas frequentes, canal direto de WhatsApp e formulário de contato integrado.
 
-A identidade usa azul claro nos detalhes e na marca, azul-marinho nos botões e textos, branco e fundos azulados suaves. Tons de azul com mais contraste são usados em textos e controles sobre fundo branco.
+🔗 **Site online no GitHub Pages:** [https://allangomesprog.github.io/novo-site/](https://allangomesprog.github.io/novo-site/)
 
-## Usar e personalizar
+---
 
-O site completo está em `dist/`. Abra `dist/index.html` em um navegador ou hospede o conteúdo dessa pasta em um servidor estático. A publicação via Sites está vinculada a `.openai/hosting.json`.
+## 🚀 Funcionalidades
 
-- `dist/index.html`: textos, seções, metadados e formulário.
-- `dist/styles.css`: cores, identidade visual e adaptação a dispositivos.
-- `dist/app.js`: menu, segmentos, seleção de serviços, formulário e privacidade.
-- `dist/assets/office.jpg`: fotografia da abertura.
+- **Identidade Visual:** Logo oficial da Padula Contabilidade e paleta em tons de azul e branco.
+- **Canal Direto de WhatsApp:** Botão flutuante configurado com o número `+55 (21) 99799-9043` e mensagem pré-formatada.
+- **Formulário de Contato Integrado:** Validação de campos e envio formatado direto para o WhatsApp da equipe.
+- **Contato por E-mail:** `contabilidade@padulacontabilidade.com` integrado no rodapé da página.
+- **Responsividade Total:** Adaptado para celulares, tablets e computadores.
 
-Antes de divulgar como escritório real, substituir a marca provisória, revisar o escopo de serviços com o responsável e adicionar dados reais de contato e identificação do escritório. Não foram inventados números de registro, clientes, avaliações, resultados ou tempo de atuação.
+---
 
-O formulário valida os campos, prepara um texto e permite copiá-lo. Não transmite dados nem simula confirmação de envio. Para captar contatos, integrar um destino real de e-mail, WhatsApp ou CRM, revisar a política de privacidade e substituir os avisos da demonstração. Nenhum dado do formulário é persistido.
+## 📂 Estrutura do Projeto
 
-## Ativar o WhatsApp
+O site estático está localizado na pasta `dist/`:
 
-O botão flutuante aparece no canto inferior direito. A pedido do responsável, ele foi preparado sem número: mostra um aviso de canal indisponível e oferece acesso ao formulário, sem abrir conversas ou transmitir dados.
+- `dist/index.html`: Estrutura da página, seções, textos e metadados.
+- `dist/styles.css`: Estilização e adaptação responsiva.
+- `dist/app.js`: Interatividade (menu mobile, segmentos, integração com WhatsApp e formulário).
+- `dist/site-config.js`: Configurações de contato (número e mensagem padrão do WhatsApp).
+- `dist/assets/logo.png`: Imagem oficial da logo da Padula Contabilidade.
+- `dist/assets/favicon.png`: Ícone da aba do navegador.
+- `dist/assets/office.jpg`: Fotografia de abertura.
 
-Quando houver um número, preencha `whatsappNumber` em `dist/site-config.js` com código do país, DDD e número. O campo aceita de 8 a 15 dígitos no formato internacional; espaços, parênteses, sinal de mais e hífens são normalizados. O valor vazio ou um formato inválido mantém o aviso de indisponibilidade. Ajuste também `whatsappMessage` se desejar. Depois, republique o site.
+---
 
-Com o número configurado, o mesmo botão abrirá uma conversa em nova aba, com a mensagem preenchida para o visitante revisar e enviar. Não há envio automático. O link segue a [documentação oficial do WhatsApp](https://faq.whatsapp.com/5913398998672934/?locale=pt_BR).
+## 🌐 Publicação no GitHub Pages
 
-## Referências e créditos
-
-A organização em soluções, setores e contato foi orientada por referências institucionais como a [Grant Thornton Brasil](https://www.grantthornton.com.br/). A identidade visual e os textos foram criados para esta página.
-
-Fotografia de [Masood Aslami no Unsplash](https://unsplash.com/photos/a-very-tall-building-with-lots-of-windows-zLmYb7HdQwI), sob a [licença Unsplash](https://unsplash.com/license). A imagem é ilustrativa e não representa uma sede real da marca.
-
-Tipografia Manrope, carregada pelo Google Fonts, com Arial como alternativa.
+O site é publicado automaticamente através da branch `gh-pages`:
+- **Branch principal de desenvolvimento:** `main`
+- **Branch de publicação:** `gh-pages`
