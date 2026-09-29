@@ -17,6 +17,14 @@ Antes de divulgar como escritório real, substituir a marca provisória, revisar
 
 O formulário valida os campos, prepara um texto e permite copiá-lo. Não transmite dados nem simula confirmação de envio. Para captar contatos, integrar um destino real de e-mail, WhatsApp ou CRM, revisar a política de privacidade e substituir os avisos da demonstração. Nenhum dado do formulário é persistido.
 
+## Ativar o WhatsApp
+
+O botão flutuante aparece no canto inferior direito. A pedido do responsável, ele foi preparado sem número: mostra um aviso de canal indisponível e oferece acesso ao formulário, sem abrir conversas ou transmitir dados.
+
+Quando houver um número, preencha `whatsappNumber` em `dist/site-config.js` com código do país, DDD e número. O campo aceita de 8 a 15 dígitos no formato internacional; espaços, parênteses, sinal de mais e hífens são normalizados. O valor vazio ou um formato inválido mantém o aviso de indisponibilidade. Ajuste também `whatsappMessage` se desejar. Depois, republique o site.
+
+Com o número configurado, o mesmo botão abrirá uma conversa em nova aba, com a mensagem preenchida para o visitante revisar e enviar. Não há envio automático. O link segue a [documentação oficial do WhatsApp](https://faq.whatsapp.com/5913398998672934/?locale=pt_BR).
+
 ## Referências e créditos
 
 A organização em soluções, setores e contato foi orientada por referências institucionais como a [Grant Thornton Brasil](https://www.grantthornton.com.br/). A identidade visual e os textos foram criados para esta página.
