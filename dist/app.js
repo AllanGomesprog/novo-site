@@ -49,21 +49,54 @@ document.querySelector('#sector-contact').addEventListener('click',()=>{
   if(!message.value.trim()||message.dataset.prefilled===message.value){message.value='Meu segmento: '+sectors[activeSector].label+'.';message.dataset.prefilled=message.value;}
   goToContact('Quero conhecer as opções');
 });
+const whatsappSettings=window.PADULA_CONTACT||window.VERTICE_CONTACT||{};
+const rawNumber=whatsappSettings.whatsappNumber||'5521997999043';
+const whatsappNumber=String(rawNumber).replace(/[\s()+-]/g,'')||'5521997999043';
+const defaultWhatsAppMessage=String(whatsappSettings.whatsappMessage||'Olá! Vim pelo site da Padula Contabilidade e gostaria de saber mais sobre os serviços.');
+
 form.addEventListener('submit',event=>{
   event.preventDefault();
   if(!form.reportValidity())return;
   const data=new FormData(form);
-  const lines=['Olá, equipe Vértice! Gostaria de conversar sobre '+data.get('service')+'.','', 'Nome: '+data.get('name').trim(),'E-mail: '+data.get('email').trim()];
-  if(data.get('company').trim())lines.push('Empresa: '+data.get('company').trim());
-  if(data.get('phone').trim())lines.push('Telefone: '+data.get('phone').trim());
-  if(data.get('message').trim())lines.push('','Sobre meu momento: '+data.get('message').trim());
-  document.querySelector('#request-preview').value=lines.join('\n');
-  form.hidden=true;result.hidden=false;document.querySelector('#copy-status').textContent='';document.querySelector('#copy-request').focus({preventScroll:true});
+  const name=data.get('name').trim();
+  const email=data.get('email').trim();
+  const company=data.get('company').trim();
+  const phone=data.get('phone').trim();
+  const service=data.get('service');
+  const userMsg=data.get('message').trim();
+
+  const lines=[
+    'Olá, equipe Padula Contabilidade! Vim pelo formulário do site e gostaria de atendimento sobre ' + service + '.',
+    '',
+    '📋 *Dados do Contato:*',
+    '• *Nome:* ' + name,
+    '• *E-mail:* ' + email
+  ];
+  if(company) lines.push('• *Empresa:* ' + company);
+  if(phone) lines.push('• *Telefone/WhatsApp:* ' + phone);
+  lines.push('• *Solução de interesse:* ' + service);
+  if(userMsg) lines.push('', '📝 *Sobre meu momento:*', userMsg);
+
+  const fullText=lines.join('\n');
+  const whatsappUrl='https://wa.me/'+whatsappNumber+'?text='+encodeURIComponent(fullText);
+
+  document.querySelector('#request-preview').value=fullText;
+  const waResultBtn=document.querySelector('#open-whatsapp-result');
+  if(waResultBtn) waResultBtn.href=whatsappUrl;
+
+  form.hidden=true;
+  result.hidden=false;
+  document.querySelector('#copy-status').textContent='';
+
+  // Abrir WhatsApp diretamente
+  window.open(whatsappUrl, '_blank');
+  if(waResultBtn) waResultBtn.focus({preventScroll:true});
 });
+
 document.querySelector('#edit-request').addEventListener('click',()=>{form.hidden=false;result.hidden=true;form.elements.name.focus({preventScroll:true});});
 document.querySelector('#copy-request').addEventListener('click',async()=>{
   const preview=document.querySelector('#request-preview');
-  try{await navigator.clipboard.writeText(preview.value);document.querySelector('#copy-status').textContent='Solicitação copiada. Nenhuma mensagem foi enviada.';}
+  try{await navigator.clipboard.writeText(preview.value);document.querySelector('#copy-status').textContent='Texto copiado com sucesso!';}
   catch{preview.focus();preview.select();document.querySelector('#copy-status').textContent='Selecione e copie o texto da solicitação.';}
 });
 const privacy=document.querySelector('#privacy-dialog');
@@ -73,23 +106,14 @@ privacy.addEventListener('click',event=>{if(event.target===privacy){const rect=p
 document.querySelector('#year').textContent=new Date().getFullYear();
 
 const whatsappLink=document.querySelector('#whatsapp-link');
-const whatsappDialog=document.querySelector('#whatsapp-dialog');
-const whatsappSettings=window.VERTICE_CONTACT||{};
-const whatsappNumber=String(whatsappSettings.whatsappNumber||'').replace(/[\s()+-]/g,'');
-const whatsappReady=/^[1-9]\d{7,14}$/.test(whatsappNumber);
-if(whatsappReady){
-  const message=String(whatsappSettings.whatsappMessage||'Olá! Gostaria de saber mais sobre os serviços da Vértice Contabilidade.');
-  whatsappLink.href='https://wa.me/'+whatsappNumber+'?text='+encodeURIComponent(message);
+if(whatsappLink){
+  whatsappLink.href='https://wa.me/'+whatsappNumber+'?text='+encodeURIComponent(defaultWhatsAppMessage);
   whatsappLink.target='_blank';
   whatsappLink.rel='noopener noreferrer';
-  whatsappLink.setAttribute('aria-label','Fale com a Vértice no WhatsApp (abre em nova aba)');
+  whatsappLink.setAttribute('aria-label','Fale com a Padula Contabilidade no WhatsApp (abre em nova aba)');
   whatsappLink.removeAttribute('aria-haspopup');
   whatsappLink.removeAttribute('aria-controls');
-  whatsappLink.title='Fale com a Vértice no WhatsApp';
-  document.querySelector('#whatsapp-caption').textContent='Fale com a equipe';
-}else{
-  whatsappLink.addEventListener('click',event=>{event.preventDefault();whatsappDialog.showModal();});
+  whatsappLink.title='Fale com a Padula Contabilidade no WhatsApp';
+  const caption=document.querySelector('#whatsapp-caption');
+  if(caption)caption.textContent='Fale conosco';
 }
-whatsappDialog.querySelector('.dialog-close').addEventListener('click',()=>whatsappDialog.close());
-document.querySelector('#whatsapp-contact').addEventListener('click',()=>{whatsappDialog.close();goToContact();});
-whatsappDialog.addEventListener('click',event=>{if(event.target===whatsappDialog){const rect=whatsappDialog.getBoundingClientRect();if(event.clientX<rect.left||event.clientX>rect.right||event.clientY<rect.top||event.clientY>rect.bottom)whatsappDialog.close();}});
