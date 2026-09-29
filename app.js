@@ -71,3 +71,25 @@ document.querySelector('#privacy-button').addEventListener('click',()=>privacy.s
 privacy.querySelectorAll('button').forEach(button=>button.addEventListener('click',()=>privacy.close()));
 privacy.addEventListener('click',event=>{if(event.target===privacy){const rect=privacy.getBoundingClientRect();if(event.clientX<rect.left||event.clientX>rect.right||event.clientY<rect.top||event.clientY>rect.bottom)privacy.close();}});
 document.querySelector('#year').textContent=new Date().getFullYear();
+
+const whatsappLink=document.querySelector('#whatsapp-link');
+const whatsappDialog=document.querySelector('#whatsapp-dialog');
+const whatsappSettings=window.VERTICE_CONTACT||{};
+const whatsappNumber=String(whatsappSettings.whatsappNumber||'').replace(/[\s()+-]/g,'');
+const whatsappReady=/^[1-9]\d{7,14}$/.test(whatsappNumber);
+if(whatsappReady){
+  const message=String(whatsappSettings.whatsappMessage||'Olá! Gostaria de saber mais sobre os serviços da Vértice Contabilidade.');
+  whatsappLink.href='https://wa.me/'+whatsappNumber+'?text='+encodeURIComponent(message);
+  whatsappLink.target='_blank';
+  whatsappLink.rel='noopener noreferrer';
+  whatsappLink.setAttribute('aria-label','Fale com a Vértice no WhatsApp (abre em nova aba)');
+  whatsappLink.removeAttribute('aria-haspopup');
+  whatsappLink.removeAttribute('aria-controls');
+  whatsappLink.title='Fale com a Vértice no WhatsApp';
+  document.querySelector('#whatsapp-caption').textContent='Fale com a equipe';
+}else{
+  whatsappLink.addEventListener('click',event=>{event.preventDefault();whatsappDialog.showModal();});
+}
+whatsappDialog.querySelector('.dialog-close').addEventListener('click',()=>whatsappDialog.close());
+document.querySelector('#whatsapp-contact').addEventListener('click',()=>{whatsappDialog.close();goToContact();});
+whatsappDialog.addEventListener('click',event=>{if(event.target===whatsappDialog){const rect=whatsappDialog.getBoundingClientRect();if(event.clientX<rect.left||event.clientX>rect.right||event.clientY<rect.top||event.clientY>rect.bottom)whatsappDialog.close();}});
